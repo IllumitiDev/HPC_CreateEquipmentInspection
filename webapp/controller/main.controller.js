@@ -463,53 +463,6 @@ sap.ui.define([
                 title: "Error",
                 details: sDetails
             });
-        },
-        
-        onValueHelpRequest: function (oEvent) {
-            var sValue = this.getView().byId("equipmentNumber").getValue();
-
-            // Create the SelectDialog
-            if (!this._oValueHelpDialog) {
-                this._oValueHelpDialog = new sap.m.SelectDialog({
-                    title: "Select Equipment",
-                    items: {
-                        path: "/EquipmentVH", // EntitySet from your metadata
-                        template: new sap.m.StandardListItem({
-                            title: "{Equipment}",
-                            description: "{EquipmentName}",
-                            type: "Active"
-                        })
-                    },
-                    search: function (oEvent) {
-                        var sSearchValue = oEvent.getParameter("value");
-                        var oFilter = new sap.ui.model.Filter({
-                            filters: [
-                                new sap.ui.model.Filter("Equipment", sap.ui.model.FilterOperator.Contains, sSearchValue),
-                                new sap.ui.model.Filter("EquipmentName", sap.ui.model.FilterOperator.Contains, sSearchValue)
-                            ],
-                            and: false // This makes it an OR search
-                        });
-                        oEvent.getSource().getBinding("items").filter([oFilter]);
-                    },
-                    confirm: function (oEvent) {
-                        var oSelectedItem = oEvent.getParameter("selectedItem");
-                        if (oSelectedItem) {
-                            var sId = oSelectedItem.getTitle();
-                            var sName = oSelectedItem.getDescription();
-                            
-                            // Set values to your model
-                            this._oInspectionDataModel.setProperty("/equipmentNumber", sId);
-                            this._oInspectionDataModel.setProperty("/equipmentName", sName);
-                            
-                            this.onValidateForm();
-                        }
-                    }.bind(this)
-                });
-                this.getView().addDependent(this._oValueHelpDialog);
-            }
-
-            // Open the dialog with the current input value as the initial filter
-            this._oValueHelpDialog.open(sValue);
-        },
+        }
     });
 });

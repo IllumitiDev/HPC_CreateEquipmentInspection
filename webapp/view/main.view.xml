@@ -26,12 +26,17 @@
             <Input id="equipmentNumber" 
                 value="{inspection>/equipmentNumber}"
                 placeholder="Search by Number or Name..."
-                showValueHelp="true"
-                valueHelpRequest=".onValueHelpRequest"
                 change="onEquipmentChange"
-                liveChange="onValidateForm" />
+                liveChange="onValidateForm" 
+                showSuggestion="true"
+                suggestionItems="{/EquipmentVH}">
+                <suggestionItems>
+                    <core:ListItem key="{Equipment}" text="{Equipment}" additionalText="{EquipmentName}" />
+                </suggestionItems>
+
+                </Input>
             
-            <Label text="Equipment" />
+            <Label text="" />
             <Text id="equipmentText" text="{inspection>/equipmentName}" />
 
             <Label text="Checklist Type" required="true" />
