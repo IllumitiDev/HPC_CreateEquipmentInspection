@@ -1,0 +1,1764 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ANALYTICS',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Analytics.v1" Alias="Analytics"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="SAP__common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_MEASURES',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Measures.V1" Alias="SAP__measures"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CORE',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Core.V1" Alias="SAP__core"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="SAP__capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="SAP__aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_VALIDATION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Validation.V1" Alias="SAP__validation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CODELIST',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.CodeList.v1" Alias="SAP__CodeList"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="SAP__UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_HTML5',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.HTML5.v1" Alias="SAP__HTML5"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PDF',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.PDF.v1" Alias="SAP__PDF"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_SESSION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Session.v1" Alias="SAP__session"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_HIERARCHY',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Hierarchy.v1" Alias="SAP__hierarchy"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="com.sap.gateway.srvd.zui_maint_order_o4.v0001" Alias="SAP__self">
+            <Annotation Term="SAP__core.SchemaVersion" String="1.0.0"/>
+            <EntityType Name="MaintenanceOrderType">
+                <Key>
+                    <PropertyRef Name="MaintenanceOrder"/>
+                </Key>
+                <Property Name="MaintenanceOrder" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="MaintOrderRoutingNumber" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="OrderType" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="MaintenanceOrderDesc" Type="Edm.String" Nullable="false" MaxLength="40"/>
+                <Property Name="MaintOrdBasicStartDateTime" Type="Edm.DateTimeOffset"/>
+                <Property Name="MaintOrdBasicEndDateTime" Type="Edm.DateTimeOffset"/>
+                <Property Name="MaintOrdBasicStartDate" Type="Edm.Date"/>
+                <Property Name="MaintOrdBasicStartTime" Type="Edm.TimeOfDay" Nullable="false"/>
+                <Property Name="MaintOrdBasicEndDate" Type="Edm.Date"/>
+                <Property Name="MaintOrdBasicEndTime" Type="Edm.TimeOfDay" Nullable="false"/>
+                <Property Name="MaintOrdSchedldBscStrtDateTime" Type="Edm.DateTimeOffset"/>
+                <Property Name="MaintOrdSchedldBscEndDateTime" Type="Edm.DateTimeOffset"/>
+                <Property Name="ScheduledBasicStartDate" Type="Edm.Date"/>
+                <Property Name="ScheduledBasicStartTime" Type="Edm.TimeOfDay" Nullable="false"/>
+                <Property Name="ScheduledBasicEndDate" Type="Edm.Date"/>
+                <Property Name="ScheduledBasicEndTime" Type="Edm.TimeOfDay" Nullable="false"/>
+                <Property Name="MaintOrderReferenceDateTime" Type="Edm.DateTimeOffset"/>
+                <Property Name="MaintOrderReferenceDate" Type="Edm.Date"/>
+                <Property Name="MaintOrderReferenceTime" Type="Edm.TimeOfDay" Nullable="false"/>
+                <Property Name="MainWorkCompletedDateTime" Type="Edm.DateTimeOffset"/>
+                <Property Name="MaintenanceNotification" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="OrdIsNotSchedldAutomatically" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="MainWorkCenterInternalID" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="MainWorkCenterTypeCode" Type="Edm.String" Nullable="false" MaxLength="2"/>
+                <Property Name="MainWorkCenter" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="MainWorkCenterPlant" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="WorkCenterInternalID" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="WorkCenterTypeCode" Type="Edm.String" Nullable="false" MaxLength="2"/>
+                <Property Name="WorkCenter" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="ControllingArea" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="LocAcctAssgmtWBSElmntIntID" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="ControllingSettlementProfile" Type="Edm.String" Nullable="false" MaxLength="6"/>
+                <Property Name="LocAcctAssgmtBusinessArea" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="LocAcctAssgmtControllingArea" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="LocAcctAssgmtCompanyCode" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="MaintenancePlanningPlant" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="MaintenancePlant" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="Assembly" Type="Edm.String" Nullable="false" MaxLength="18"/>
+                <Property Name="MaintOrdProcessPhaseCode" Type="Edm.String" Nullable="false" MaxLength="2"/>
+                <Property Name="MaintOrdProcessSubPhaseCode" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="BusinessArea" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="ReferenceElement" Type="Edm.String" Nullable="false" MaxLength="40"/>
+                <Property Name="FunctionalArea" Type="Edm.String" Nullable="false" MaxLength="16"/>
+                <Property Name="AdditionalDeviceData" Type="Edm.String" Nullable="false" MaxLength="40"/>
+                <Property Name="Equipment" Type="Edm.String" Nullable="false" MaxLength="18"/>
+                <Property Name="MaintenanceOrderPlanningCode" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="MaintenancePlannerGroup" Type="Edm.String" Nullable="false" MaxLength="3"/>
+                <Property Name="MaintenanceActivityType" Type="Edm.String" Nullable="false" MaxLength="3"/>
+                <Property Name="MaintPriority" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="MaintPriorityType" Type="Edm.String" Nullable="false" MaxLength="2"/>
+                <Property Name="OrderProcessingGroup" Type="Edm.String" Nullable="false" MaxLength="2"/>
+                <Property Name="ProfitCenter" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="ResponsibleCostCenter" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="CostCenter" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="CostingSheet" Type="Edm.String" Nullable="false" MaxLength="6"/>
+                <Property Name="Currency" Type="Edm.String" Nullable="false" MaxLength="5"/>
+                <Property Name="MaintenanceRevision" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="SerialNumber" Type="Edm.String" Nullable="false" MaxLength="18"/>
+                <Property Name="Product" Type="Edm.String" Nullable="false" MaxLength="18"/>
+                <Property Name="SuperiorProjectNetwork" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="OperationSystemCondition" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="WBSElementInternalID" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="ProjectInternalID" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="ControllingObjectClass" Type="Edm.String" Nullable="false" MaxLength="2"/>
+                <Property Name="FunctionalLocation" Type="Edm.String" Nullable="false" MaxLength="30"/>
+                <Property Name="AssetLocation" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="AssetRoom" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="PlantSection" Type="Edm.String" Nullable="false" MaxLength="3"/>
+                <Property Name="ABCIndicator" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="MaintObjectFreeDefinedAttrib" Type="Edm.String" Nullable="false" MaxLength="30"/>
+                <Property Name="MaintenanceOrderInternalID" Type="Edm.String" Nullable="false" MaxLength="22"/>
+                <Property Name="MaintenanceItemObjectList" Type="Edm.Int64" Nullable="false"/>
+                <Property Name="MaintObjectLocAcctAssgmtNmbr" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="BasicSchedulingType" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="LatestAcceptableCompletionDate" Type="Edm.Date"/>
+                <Property Name="MaintOrdPersonResponsible" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="LastChangeByUser" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset"/>
+                <Property Name="CreatedByUser" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="MaintOrderCreationDateTime" Type="Edm.DateTimeOffset"/>
+                <Property Name="OrderHasLongText" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="MaintOrderProcessingContext" Type="Edm.String" Nullable="false" MaxLength="2"/>
+                <Property Name="MaintenanceOrderOverheadCode" Type="Edm.String" Nullable="false" MaxLength="6"/>
+                <Property Name="PlannedCostsCostingVariant" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="ActualCostsCostingVariant" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="MaintenancePlan" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="MaintenanceCall" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="MaintenanceItem" Type="Edm.String" Nullable="false" MaxLength="16"/>
+                <Property Name="LeadingOrder" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="TaskListType" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="TaskListGroup" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="TaskListGroupCounter" Type="Edm.String" Nullable="false" MaxLength="2"/>
+                <Property Name="__CreateByAssociationControl" Type="com.sap.gateway.srvd.zui_maint_order_o4.v0001.MaintenanceOrderCbAControl"/>
+                <Property Name="__EntityControl" Type="com.sap.gateway.srvd.zui_maint_order_o4.v0001.EntityControl"/>
+                <Property Name="__FieldControl" Type="com.sap.gateway.srvd.zui_maint_order_o4.v0001.MaintenanceOrderControl"/>
+                <Property Name="SAP__Messages" Type="Collection(com.sap.gateway.srvd.zui_maint_order_o4.v0001.SAP__Message)" Nullable="false"/>
+                <NavigationProperty Name="_MaintenanceOrderOperation" Type="Collection(com.sap.gateway.srvd.zui_maint_order_o4.v0001.MaintenanceOrderOperationType)" Partner="_MaintenanceOrder">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="MaintenanceOrderOperationType">
+                <Key>
+                    <PropertyRef Name="MaintenanceOrder"/>
+                    <PropertyRef Name="MaintenanceOrderOperation"/>
+                    <PropertyRef Name="MaintenanceOrderSubOperation"/>
+                </Key>
+                <Property Name="MaintenanceOrder" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="MaintenanceOrderOperation" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="MaintenanceOrderSubOperation" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="MaintOrderRoutingNumber" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="MaintenanceOrderRoutingNode" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="SuperiorOperationInternalID" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="OperationControlKey" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="OperationDescription" Type="Edm.String" Nullable="false" MaxLength="40"/>
+                <Property Name="OperationWorkCenterInternalID" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="OperationWorkCenterTypeCode" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="Plant" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="OperationStandardTextCode" Type="Edm.String" Nullable="false" MaxLength="7"/>
+                <Property Name="Language" Type="Edm.String" Nullable="false" MaxLength="2"/>
+                <Property Name="NumberOfTimeTickets" Type="Edm.Decimal" Nullable="false" Precision="3"/>
+                <Property Name="OperationPurgInfoRecdSearchTxt" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="OperationSupplier" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="OpExternalProcessingPrice" Type="Edm.Decimal" Nullable="false" Precision="11" Scale="variable"/>
+                <Property Name="OpExternalProcessingPriceUnit" Type="Edm.Decimal" Nullable="false" Precision="5"/>
+                <Property Name="OpExternalProcessingCurrency" Type="Edm.String" Nullable="false" MaxLength="5"/>
+                <Property Name="CostElement" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="OperationPurchasingInfoRecord" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="PurchasingOrganization" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="PurchasingGroup" Type="Edm.String" Nullable="false" MaxLength="3"/>
+                <Property Name="MaterialGroup" Type="Edm.String" Nullable="false" MaxLength="9"/>
+                <Property Name="OpPurchaseOutlineAgreement" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="OpPurchaseOutlineAgreementItem" Type="Edm.String" Nullable="false" MaxLength="5"/>
+                <Property Name="OperationRequisitionerName" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="OperationTrackingNumber" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="NumberOfCapacities" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="OperationWorkPercent" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="OperationCalculationControl" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="ActivityType" Type="Edm.String" Nullable="false" MaxLength="6"/>
+                <Property Name="OperationSystemCondition" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="OperationGoodsRecipientName" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="OperationUnloadingPointName" Type="Edm.String" Nullable="false" MaxLength="25"/>
+                <Property Name="OperationPersonResponsible" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="EAMPlannedDeliveryDurnInDays" Type="Edm.Decimal" Nullable="false" Precision="3"/>
+                <Property Name="MaintOrderOperationDuration" Type="Edm.Decimal" Nullable="false" Precision="5" Scale="1"/>
+                <Property Name="MaintOrdOperationDurationUnit" Type="Edm.String" Nullable="false" MaxLength="3"/>
+                <Property Name="OpErlstSchedldExecStrtDteTme" Type="Edm.DateTimeOffset"/>
+                <Property Name="OpErlstSchedldExecEndDteTme" Type="Edm.DateTimeOffset"/>
+                <Property Name="OpLtstSchedldExecStrtDteTme" Type="Edm.DateTimeOffset"/>
+                <Property Name="OpLtstSchedldExecEndDteTme" Type="Edm.DateTimeOffset"/>
+                <Property Name="OpActualExecutionStartDateTime" Type="Edm.DateTimeOffset"/>
+                <Property Name="OpActualExecutionEndDateTime" Type="Edm.DateTimeOffset"/>
+                <Property Name="OpBscStartDateConstraintType" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="OpBscEndDateConstraintType" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="MaintOrdOperationWorkDuration" Type="Edm.Decimal" Nullable="false" Precision="7" Scale="1"/>
+                <Property Name="MaintOrdOpWorkDurationUnit" Type="Edm.String" Nullable="false" MaxLength="3"/>
+                <Property Name="MaintOrdOpConstraintStrtDteTme" Type="Edm.DateTimeOffset"/>
+                <Property Name="ConstraintDateForBscStartDate" Type="Edm.Date"/>
+                <Property Name="ConstraintTimeForBscStartTime" Type="Edm.TimeOfDay" Nullable="false"/>
+                <Property Name="MaintOrdOpCstrtFinishDteTme" Type="Edm.DateTimeOffset"/>
+                <Property Name="ConstraintDateForBscFinishDate" Type="Edm.Date"/>
+                <Property Name="ConstraintTimeForBscFinishTime" Type="Edm.TimeOfDay" Nullable="false"/>
+                <Property Name="MaintOrdOperationExecutionRate" Type="Edm.Decimal" Nullable="false" Precision="3"/>
+                <Property Name="Equipment" Type="Edm.String" Nullable="false" MaxLength="18"/>
+                <Property Name="FunctionalLocation" Type="Edm.String" Nullable="false" MaxLength="30"/>
+                <Property Name="OpErlstSchedldExecStrtDte" Type="Edm.Date"/>
+                <Property Name="OpErlstSchedldExecStrtTme" Type="Edm.TimeOfDay" Nullable="false"/>
+                <Property Name="OpErlstSchedldExecEndDte" Type="Edm.Date"/>
+                <Property Name="OpErlstSchedldExecEndTme" Type="Edm.TimeOfDay" Nullable="false"/>
+                <Property Name="OpLtstSchedldExecStrtDte" Type="Edm.Date"/>
+                <Property Name="OpLtstSchedldExecStrtTme" Type="Edm.TimeOfDay" Nullable="false"/>
+                <Property Name="OpLtstSchedldExecEndDte" Type="Edm.Date"/>
+                <Property Name="OpLtstSchedldExecEndTme" Type="Edm.TimeOfDay" Nullable="false"/>
+                <Property Name="OpActualExecutionStartDate" Type="Edm.Date"/>
+                <Property Name="OpActualExecutionStartTime" Type="Edm.TimeOfDay" Nullable="false"/>
+                <Property Name="OpActualExecutionEndDate" Type="Edm.Date"/>
+                <Property Name="OpActualExecutionEndTime" Type="Edm.TimeOfDay" Nullable="false"/>
+                <Property Name="ActyConfFcstdEndDate" Type="Edm.Date"/>
+                <Property Name="ActyConfFcstdEndTime" Type="Edm.TimeOfDay" Nullable="false"/>
+                <Property Name="ActyConfForecastedEndDateTime" Type="Edm.DateTimeOffset"/>
+                <Property Name="ForecastWorkQuantity" Type="Edm.Decimal" Nullable="false" Precision="7" Scale="1"/>
+                <Property Name="ActualWorkQuantity" Type="Edm.Decimal" Nullable="false" Precision="13" Scale="3"/>
+                <Property Name="MaintenanceActivityType" Type="Edm.String" Nullable="false" MaxLength="3"/>
+                <Property Name="BusinessArea" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="ProfitCenter" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="CostingSheet" Type="Edm.String" Nullable="false" MaxLength="6"/>
+                <Property Name="TaxJurisdiction" Type="Edm.String" Nullable="false" MaxLength="15"/>
+                <Property Name="FunctionalArea" Type="Edm.String" Nullable="false" MaxLength="16"/>
+                <Property Name="MaintOrdOperationIsMRPRelevant" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="MaintControllingObjectClass" Type="Edm.String" Nullable="false" MaxLength="2"/>
+                <Property Name="WrkCtrIntCapRqmtsDistr" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="MaintOrdOperationOverheadCode" Type="Edm.String" Nullable="false" MaxLength="6"/>
+                <Property Name="MaintOrderOperationQuantity" Type="Edm.Decimal" Nullable="false" Precision="13" Scale="3"/>
+                <Property Name="MaintOrdOperationQuantityUnit" Type="Edm.String" Nullable="false" MaxLength="3"/>
+                <Property Name="Assembly" Type="Edm.String" Nullable="false" MaxLength="18"/>
+                <Property Name="MaintOperationExecStageCode" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="MaintOrdOpAssgdWBSElmntInt" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="IsMarkedForDeletion" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="MaintOrderOperationInternalID" Type="Edm.String" Nullable="false" MaxLength="22"/>
+                <Property Name="MaintenanceObjectListItem" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="PurchaseRequisition" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="PurchaseRequisitionItem" Type="Edm.String" Nullable="false" MaxLength="5"/>
+                <Property Name="MaintOrdOpProcessPhaseCode" Type="Edm.String" Nullable="false" MaxLength="2"/>
+                <Property Name="MaintOrdOpProcessSubPhaseCode" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="AllMaintOrdCompCmtdQtsAreKept" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="ControllingArea" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="MaintOrderConfirmation" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="MaintOrderConfCntrValue" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="MaintOrdOpHasNoRemainingWork" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="MaintOrdOpHasLeanServices" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="MaintOrdOpDelivDateAdjustment" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="TaskListType" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="TaskListGroup" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="TaskListGroupCounter" Type="Edm.String" Nullable="false" MaxLength="2"/>
+                <Property Name="__FieldControl" Type="com.sap.gateway.srvd.zui_maint_order_o4.v0001.MaintenanceOrderOperationControl"/>
+                <NavigationProperty Name="_MaintenanceOrder" Type="com.sap.gateway.srvd.zui_maint_order_o4.v0001.MaintenanceOrderType" Nullable="false" Partner="_MaintenanceOrderOperation">
+                    <ReferentialConstraint Property="MaintenanceOrder" ReferencedProperty="MaintenanceOrder"/>
+                </NavigationProperty>
+            </EntityType>
+            <ComplexType Name="MaintenanceOrderControl">
+                <Property Name="Equipment" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="FunctionalLocation" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="LatestAcceptableCompletionDate" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="MaintenancePlant" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="MaintPriority" Type="Edm.Byte" Nullable="false"/>
+            </ComplexType>
+            <ComplexType Name="MaintenanceOrderOperationControl">
+                <Property Name="AllMaintOrdCompCmtdQtsAreKept" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="Assembly" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="EAMPlannedDeliveryDurnInDays" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="MaintOrdOperationDurationUnit" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="MaintOrdOperationQuantityUnit" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="MaintOrdOpWorkDurationUnit" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="MaterialGroup" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="OperationControlKey" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="OperationPurgInfoRecdSearchTxt" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="OperationSupplier" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="OpExternalProcessingPriceUnit" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="PurchasingGroup" Type="Edm.Byte" Nullable="false"/>
+            </ComplexType>
+            <ComplexType Name="MaintenanceOrderCbAControl">
+                <Property Name="_MaintenanceOrderOperation" Type="Edm.Boolean" Nullable="false"/>
+            </ComplexType>
+            <ComplexType Name="EntityControl">
+                <Property Name="Updatable" Type="Edm.Boolean" Nullable="false"/>
+            </ComplexType>
+            <ComplexType Name="SAP__Message">
+                <Property Name="code" Type="Edm.String" Nullable="false"/>
+                <Property Name="message" Type="Edm.String" Nullable="false"/>
+                <Property Name="target" Type="Edm.String"/>
+                <Property Name="additionalTargets" Type="Collection(Edm.String)" Nullable="false"/>
+                <Property Name="transition" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="numericSeverity" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="longtextUrl" Type="Edm.String"/>
+            </ComplexType>
+            <EntityContainer Name="Container">
+                <EntitySet Name="MaintenanceOrder" EntityType="com.sap.gateway.srvd.zui_maint_order_o4.v0001.MaintenanceOrderType">
+                    <NavigationPropertyBinding Path="_MaintenanceOrderOperation" Target="MaintenanceOrderOperation"/>
+                </EntitySet>
+                <EntitySet Name="MaintenanceOrderOperation" EntityType="com.sap.gateway.srvd.zui_maint_order_o4.v0001.MaintenanceOrderOperationType">
+                    <NavigationPropertyBinding Path="_MaintenanceOrder" Target="MaintenanceOrder"/>
+                </EntitySet>
+            </EntityContainer>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintenanceOrder">
+                <Annotation Term="SAP__core.Immutable"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Order"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Order Number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintOrderRoutingNumber">
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="Opertn Task List No."/>
+                <Annotation Term="SAP__common.Heading" String="Routing Number for Operations"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Routing Number of Operations in the Order"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/OrderType">
+                <Annotation Term="SAP__core.Immutable"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Order Type"/>
+                <Annotation Term="SAP__common.Heading" String="Type"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintOrdBasicStartDate">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintOrdBasicStartTime">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintOrdBasicEndDate">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintOrdBasicEndTime">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintOrdSchedldBscStrtDateTime">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Time Stamp"/>
+                <Annotation Term="SAP__common.QuickInfo" String="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintOrdSchedldBscEndDateTime">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Time Stamp"/>
+                <Annotation Term="SAP__common.QuickInfo" String="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/ScheduledBasicStartDate">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/ScheduledBasicStartTime">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/ScheduledBasicEndDate">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/ScheduledBasicEndTime">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintOrderReferenceDateTime">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Time Stamp"/>
+                <Annotation Term="SAP__common.QuickInfo" String="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintOrderReferenceDate">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintOrderReferenceTime">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MainWorkCompletedDateTime">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Main Work Completed"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Main Work Completed Date and Time"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintenanceNotification">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Notification"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Notification Number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/OrdIsNotSchedldAutomatically">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="No auto. scheduling"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Indicator: Do not schedule automatically"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MainWorkCenterInternalID">
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="Work Center"/>
+                <Annotation Term="SAP__common.Heading" String="WorkCtr"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Object ID of the Work Center"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MainWorkCenterTypeCode">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Object Type"/>
+                <Annotation Term="SAP__common.Heading" String="T"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Object Type of CIM Resources for Work Center"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MainWorkCenter">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Work Center"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MainWorkCenterPlant">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Plant"/>
+                <Annotation Term="SAP__common.Heading" String="Plnt"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/WorkCenterInternalID">
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="PP work center"/>
+                <Annotation Term="SAP__common.Heading" String="PP WkCtr"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Object ID of PP work center"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/WorkCenterTypeCode">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Object Type"/>
+                <Annotation Term="SAP__common.Heading" String="Typ"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Object types of the CIM resource"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/WorkCenter">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Work Center"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/ControllingArea">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Controlling Area"/>
+                <Annotation Term="SAP__common.Heading" String="COAr"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/LocAcctAssgmtWBSElmntIntID">
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="WBS Internal ID"/>
+                <Annotation Term="SAP__common.Heading" String="WBS Elem"/>
+                <Annotation Term="SAP__common.QuickInfo" String="WBS Element"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/ControllingSettlementProfile">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Settlement Profile"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/LocAcctAssgmtBusinessArea">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Business Area"/>
+                <Annotation Term="SAP__common.Heading" String="BusA"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/LocAcctAssgmtControllingArea">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Controlling Area"/>
+                <Annotation Term="SAP__common.Heading" String="COAr"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/LocAcctAssgmtCompanyCode">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Company Code"/>
+                <Annotation Term="SAP__common.Heading" String="CoCd"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintenancePlanningPlant">
+                <Annotation Term="SAP__core.Immutable"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Planning Plant"/>
+                <Annotation Term="SAP__common.Heading" String="PlPl"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Maintenance Planning Plant"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintenancePlant">
+                <Annotation Term="SAP__common.FieldControl" Path="__FieldControl/MaintenancePlant"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Maintenance Plant"/>
+                <Annotation Term="SAP__common.Heading" String="Plnt"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/Assembly">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Assembly"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintOrdProcessPhaseCode">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Process Phase"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintOrdProcessSubPhaseCode">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Process Subphase"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/CompanyCode">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Company Code"/>
+                <Annotation Term="SAP__common.Heading" String="CoCd"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/BusinessArea">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Business Area"/>
+                <Annotation Term="SAP__common.Heading" String="BusA"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/ReferenceElement">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Ref. Element PM/PS"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Reference Element PM/PS"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/FunctionalArea">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Functional Area"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/AdditionalDeviceData">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Addit. device data"/>
+                <Annotation Term="SAP__common.Heading" String="AD"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Additional Device Data"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/Equipment">
+                <Annotation Term="SAP__common.FieldControl" Path="__FieldControl/Equipment"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Equipment"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Equipment Number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintenanceOrderPlanningCode">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Order planning ind."/>
+                <Annotation Term="SAP__common.Heading" String="OPI"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Maintenance order planning indicator"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintenancePlannerGroup">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Maint. Planner Group"/>
+                <Annotation Term="SAP__common.Heading" String="PG"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Planner Group for Customer Service and Plant Maintenance"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintenanceActivityType">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Activity Type"/>
+                <Annotation Term="SAP__common.Heading" String="Maintenance Activity Type"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Maintenance Activity Type"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintPriority">
+                <Annotation Term="SAP__common.FieldControl" Path="__FieldControl/MaintPriority"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Priority"/>
+                <Annotation Term="SAP__common.Heading" String="P"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintPriorityType">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Priority Type"/>
+                <Annotation Term="SAP__common.Heading" String="PrTyp"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/OrderProcessingGroup">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="Processing group"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/ProfitCenter">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Profit Center"/>
+                <Annotation Term="SAP__common.Heading" String="Profit Ctr"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/ResponsibleCostCenter">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Respons. Cost Center"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Responsible Cost Center"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/CostCenter">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Cost Center"/>
+                <Annotation Term="SAP__common.Heading" String="Cost Ctr"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/CostingSheet">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Costing Sheet"/>
+                <Annotation Term="SAP__common.Heading" String="CostSh"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/Currency">
+                <Annotation Term="SAP__common.IsCurrency"/>
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Currency"/>
+                <Annotation Term="SAP__common.Heading" String="Crcy"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Order Currency"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintenanceRevision">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Revision"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Revision for Plant Maintenance and Customer Service"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/Product">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Material"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Material Number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/SuperiorProjectNetwork">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Subnetwork of"/>
+                <Annotation Term="SAP__common.Heading" String="Subntwk of"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Number of superior network"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/OperationSystemCondition">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="System Condition"/>
+                <Annotation Term="SAP__common.Heading" String="C"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/WBSElementInternalID">
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="WBS Internal ID"/>
+                <Annotation Term="SAP__common.Heading" String="WBS Elem"/>
+                <Annotation Term="SAP__common.QuickInfo" String="WBS Element"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/ProjectInternalID">
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="Project Def."/>
+                <Annotation Term="SAP__common.Heading" String="Project Definition"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Project (internal)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/ControllingObjectClass">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Controlling Object Class"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/FunctionalLocation">
+                <Annotation Term="SAP__common.FieldControl" Path="__FieldControl/FunctionalLocation"/>
+                <Annotation Term="SAP__common.Label" String="Functional Location"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/AssetLocation">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Location"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Location of maintenance object"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/AssetRoom">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Room"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/PlantSection">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Plant Section"/>
+                <Annotation Term="SAP__common.Heading" String="PlS"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/ABCIndicator">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="ABC Indicator"/>
+                <Annotation Term="SAP__common.QuickInfo" String="ABC Indicator for Technical Object"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintObjectFreeDefinedAttrib">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Sort Field"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintenanceOrderInternalID">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Object number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintenanceItemObjectList">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Object list"/>
+                <Annotation Term="SAP__common.Heading" String="ObjList"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Object list number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintObjectLocAcctAssgmtNmbr">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Loc/Acct Assignment"/>
+                <Annotation Term="SAP__common.Heading" String="Loc/AccAssmt"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Location and account assignment for technical object"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/BasicSchedulingType">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Scheduling type"/>
+                <Annotation Term="SAP__common.Heading" String="ST"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/LatestAcceptableCompletionDate">
+                <Annotation Term="SAP__common.FieldControl" Path="__FieldControl/LatestAcceptableCompletionDate"/>
+                <Annotation Term="SAP__common.Label" String="Final Due Date"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintOrdPersonResponsible">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Person Resp. ID"/>
+                <Annotation Term="SAP__common.Heading" String="Person Responsible ID"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Person Responsible ID"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/LastChangeByUser">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Last Changed By"/>
+                <Annotation Term="SAP__common.Heading" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/LastChangeDateTime">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Short Time Stamp"/>
+                <Annotation Term="SAP__common.Heading" String="Short Form of Time Stamp"/>
+                <Annotation Term="SAP__common.QuickInfo" String="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/CreatedByUser">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Entered By"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintOrderCreationDateTime">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Time Stamp"/>
+                <Annotation Term="SAP__common.QuickInfo" String="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/OrderHasLongText">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Order Has Long Text"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintOrderProcessingContext">
+                <Annotation Term="SAP__core.Immutable"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Processing Context"/>
+                <Annotation Term="SAP__common.Heading" String="Maintenance Order Processing Context"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Additional Processing Context for Maintenance Order"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintenanceOrderOverheadCode">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Overhead key"/>
+                <Annotation Term="SAP__common.Heading" String="OH key"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/PlannedCostsCostingVariant">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Plnd Costing Variant"/>
+                <Annotation Term="SAP__common.Heading" String="CVPl"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Costing Variant for Planned Costs"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/ActualCostsCostingVariant">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Act. Costing Variant"/>
+                <Annotation Term="SAP__common.Heading" String="CVAc"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Costing Variant For Actual Costs"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintenancePlan">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Maintenance Plan"/>
+                <Annotation Term="SAP__common.Heading" String="MntPlan"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintenanceCall">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="MntPlan Call No."/>
+                <Annotation Term="SAP__common.Heading" String="Call No."/>
+                <Annotation Term="SAP__common.QuickInfo" String="Maintenance Plan Call Number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintenanceItem">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Maintenance Item"/>
+                <Annotation Term="SAP__common.Heading" String="Maintenance item"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Maintenance item"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/LeadingOrder">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Last order"/>
+                <Annotation Term="SAP__common.Heading" String="Last ord."/>
+                <Annotation Term="SAP__common.QuickInfo" String="Order number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/TaskListType">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="BOO Type"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Bill of Operations Type"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/TaskListGroup">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Bill of Operations"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Bill of Operations ID"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/TaskListGroupCounter">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="BOO Variant"/>
+                <Annotation Term="SAP__common.Heading" String="BOOVariant"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Bill of Operations Variant"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/__CreateByAssociationControl">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__UI.HiddenFilter"/>
+                <Annotation Term="SAP__UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/__EntityControl">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__UI.HiddenFilter"/>
+                <Annotation Term="SAP__UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/__FieldControl">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__UI.HiddenFilter"/>
+                <Annotation Term="SAP__UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/_MaintenanceOrderOperation">
+                <Annotation Term="SAP__common.Composition"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Container/MaintenanceOrder">
+                <Annotation Term="SAP__capabilities.NavigationRestrictions">
+                    <Record>
+                        <PropertyValue Property="RestrictedProperties">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="_MaintenanceOrderOperation"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Path="__CreateByAssociationControl/_MaintenanceOrderOperation"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.SearchRestrictions">
+                    <Record>
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>__CreateByAssociationControl</PropertyPath>
+                                <PropertyPath>__EntityControl</PropertyPath>
+                                <PropertyPath>__FieldControl</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>__CreateByAssociationControl</PropertyPath>
+                                <PropertyPath>__EntityControl</PropertyPath>
+                                <PropertyPath>__FieldControl</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Path="__EntityControl/Updatable"/>
+                        <PropertyValue Property="QueryOptions">
+                            <Record>
+                                <PropertyValue Property="SelectSupported" Bool="true"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__core.OptimisticConcurrency">
+                    <Collection>
+                        <PropertyPath>LastChangeDateTime</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType">
+                <Annotation Term="SAP__common.Label" String="Maintenance Order API"/>
+                <Annotation Term="SAP__common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>MaintenanceOrder</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__common.Messages" Path="SAP__Messages"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Container">
+                <Annotation Term="SAP__CodeList.CurrencyCodes">
+                    <Record>
+                        <PropertyValue Property="Url" String="../../../../default/iwbep/common/0001/$metadata"/>
+                        <PropertyValue Property="CollectionPath" String="Currencies"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__CodeList.UnitsOfMeasure">
+                    <Record>
+                        <PropertyValue Property="Url" String="../../../../default/iwbep/common/0001/$metadata"/>
+                        <PropertyValue Property="CollectionPath" String="UnitsOfMeasure"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="SAP__aggregation.RollupType/None"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
+                <Annotation Term="SAP__capabilities.FilterFunctions">
+                    <Collection>
+                        <String>eq</String>
+                        <String>ne</String>
+                        <String>gt</String>
+                        <String>ge</String>
+                        <String>lt</String>
+                        <String>le</String>
+                        <String>and</String>
+                        <String>or</String>
+                        <String>contains</String>
+                        <String>startswith</String>
+                        <String>endswith</String>
+                        <String>any</String>
+                        <String>all</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.SupportedFormats">
+                    <Collection>
+                        <String>application/json</String>
+                        <String>application/pdf</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__PDF.Features">
+                    <Record>
+                        <PropertyValue Property="DocumentDescriptionReference" String="../../../../default/iwbep/common/0001/$metadata"/>
+                        <PropertyValue Property="DocumentDescriptionCollection" String="MyDocumentDescriptions"/>
+                        <PropertyValue Property="ArchiveFormat" Bool="true"/>
+                        <PropertyValue Property="Border" Bool="true"/>
+                        <PropertyValue Property="CoverPage" Bool="true"/>
+                        <PropertyValue Property="FitToPage" Bool="true"/>
+                        <PropertyValue Property="FontName" Bool="true"/>
+                        <PropertyValue Property="FontSize" Bool="true"/>
+                        <PropertyValue Property="Margin" Bool="true"/>
+                        <PropertyValue Property="Padding" Bool="true"/>
+                        <PropertyValue Property="Signature" Bool="true"/>
+                        <PropertyValue Property="HeaderFooter" Bool="true"/>
+                        <PropertyValue Property="ResultSizeDefault" Int="20000"/>
+                        <PropertyValue Property="ResultSizeMaximum" Int="20000"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.KeyAsSegmentSupported"/>
+                <Annotation Term="SAP__capabilities.AsynchronousRequestsSupported"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintenanceOrder">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Order"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Order Number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintenanceOrderOperation">
+                <Annotation Term="SAP__core.Immutable"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Operation"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Maintenance Order Operation"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintenanceOrderSubOperation">
+                <Annotation Term="SAP__core.Immutable"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Suboperation"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Maintenance Order Suboperation"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintOrderRoutingNumber">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="Opertn Task List No."/>
+                <Annotation Term="SAP__common.Heading" String="Routing Number for Operations"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Routing Number of Operations in the Order"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintenanceOrderRoutingNode">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="Counter"/>
+                <Annotation Term="SAP__common.QuickInfo" String="General counter for order"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/SuperiorOperationInternalID">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="Superior Op. Node"/>
+                <Annotation Term="SAP__common.Heading" String="OpNode"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Node Number of the Superior Operation"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OperationControlKey">
+                <Annotation Term="SAP__common.FieldControl" Path="__FieldControl/OperationControlKey"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Control Key"/>
+                <Annotation Term="SAP__common.Heading" String="Ctrl"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OperationWorkCenterInternalID">
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="Object ID"/>
+                <Annotation Term="SAP__common.Heading" String="ID"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Object ID of the resource"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OperationWorkCenterTypeCode">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/Plant">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Plant"/>
+                <Annotation Term="SAP__common.Heading" String="Plnt"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OperationStandardTextCode">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Standard text key"/>
+                <Annotation Term="SAP__common.Heading" String="StTextKy"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/Language">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Language Key"/>
+                <Annotation Term="SAP__common.Heading" String="Language"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/NumberOfTimeTickets">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="No. of Time Tickets"/>
+                <Annotation Term="SAP__common.Heading" String="TmeTck"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Number of Time Tickets"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OperationPurgInfoRecdSearchTxt">
+                <Annotation Term="SAP__common.FieldControl" Path="__FieldControl/OperationPurgInfoRecdSearchTxt"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Sort Term"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Sort Term for Non-Stock Info Records"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OperationSupplier">
+                <Annotation Term="SAP__common.FieldControl" Path="__FieldControl/OperationSupplier"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Supplier"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Account Number of Supplier"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpExternalProcessingPrice">
+                <Annotation Term="SAP__measures.ISOCurrency" Path="OpExternalProcessingCurrency"/>
+                <Annotation Term="SAP__common.Label" String="Price"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpExternalProcessingPriceUnit">
+                <Annotation Term="SAP__common.FieldControl" Path="__FieldControl/OpExternalProcessingPriceUnit"/>
+                <Annotation Term="SAP__measures.Unit" Path="MaintOrdOperationQuantityUnit"/>
+                <Annotation Term="SAP__common.Label" String="Price unit"/>
+                <Annotation Term="SAP__common.Heading" String="per"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpExternalProcessingCurrency">
+                <Annotation Term="SAP__common.IsCurrency"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Currency"/>
+                <Annotation Term="SAP__common.Heading" String="Crcy"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Currency Key"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/CostElement">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Cost Element"/>
+                <Annotation Term="SAP__common.Heading" String="Cost Elem."/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OperationPurchasingInfoRecord">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Purchasing Info Rec."/>
+                <Annotation Term="SAP__common.Heading" String="Info Rec."/>
+                <Annotation Term="SAP__common.QuickInfo" String="Purchasing Info Record Number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/PurchasingOrganization">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Purch. Organization"/>
+                <Annotation Term="SAP__common.Heading" String="POrg"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Purchasing Organization"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/PurchasingGroup">
+                <Annotation Term="SAP__common.FieldControl" Path="__FieldControl/PurchasingGroup"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Purchasing Group"/>
+                <Annotation Term="SAP__common.Heading" String="PGr"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Purchasing Group for External Processing Activity"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaterialGroup">
+                <Annotation Term="SAP__common.FieldControl" Path="__FieldControl/MaterialGroup"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Material Group"/>
+                <Annotation Term="SAP__common.Heading" String="Matl Group"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpPurchaseOutlineAgreement">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Outline agreement"/>
+                <Annotation Term="SAP__common.Heading" String="Agmt."/>
+                <Annotation Term="SAP__common.QuickInfo" String="Number of principal purchase agreement"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpPurchaseOutlineAgreementItem">
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="Agreement Item"/>
+                <Annotation Term="SAP__common.Heading" String="Item"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Item Number of Principal Purchase Agreement"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OperationTrackingNumber">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Req. Tracking Number"/>
+                <Annotation Term="SAP__common.Heading" String="TrackingNo"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Requirement Tracking Number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OperationCalculationControl">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Calculation Key"/>
+                <Annotation Term="SAP__common.Heading" String="Calc"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Key for calculation"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/ActivityType">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Activity Type"/>
+                <Annotation Term="SAP__common.Heading" String="ActTyp"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OperationSystemCondition">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="System Condition"/>
+                <Annotation Term="SAP__common.Heading" String="C"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OperationPersonResponsible">
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="Personnel number"/>
+                <Annotation Term="SAP__common.Heading" String="Pers. No."/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/EAMPlannedDeliveryDurnInDays">
+                <Annotation Term="SAP__common.FieldControl" Path="__FieldControl/EAMPlannedDeliveryDurnInDays"/>
+                <Annotation Term="SAP__common.Label" String="Planned Deliv. Time"/>
+                <Annotation Term="SAP__common.Heading" String="PDT"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Planned Delivery Time in Days"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintOrderOperationDuration">
+                <Annotation Term="SAP__measures.Unit" Path="MaintOrdOperationDurationUnit"/>
+                <Annotation Term="SAP__common.Label" String="Normal duration"/>
+                <Annotation Term="SAP__common.Heading" String="NorDur"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Normal duration of the activity"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintOrdOperationDurationUnit">
+                <Annotation Term="SAP__common.IsUnit"/>
+                <Annotation Term="SAP__common.FieldControl" Path="__FieldControl/MaintOrdOperationDurationUnit"/>
+                <Annotation Term="SAP__common.Label" String="Normal duration unit"/>
+                <Annotation Term="SAP__common.Heading" String="Un."/>
+                <Annotation Term="SAP__common.QuickInfo" String="Normal duration/unit"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpErlstSchedldExecStrtDteTme">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Time Stamp"/>
+                <Annotation Term="SAP__common.QuickInfo" String="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpErlstSchedldExecEndDteTme">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Time Stamp"/>
+                <Annotation Term="SAP__common.QuickInfo" String="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpLtstSchedldExecStrtDteTme">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Time Stamp"/>
+                <Annotation Term="SAP__common.QuickInfo" String="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpLtstSchedldExecEndDteTme">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Time Stamp"/>
+                <Annotation Term="SAP__common.QuickInfo" String="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpActualExecutionStartDateTime">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Time Stamp"/>
+                <Annotation Term="SAP__common.QuickInfo" String="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpActualExecutionEndDateTime">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Time Stamp"/>
+                <Annotation Term="SAP__common.QuickInfo" String="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpBscStartDateConstraintType">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Constraint on start"/>
+                <Annotation Term="SAP__common.Heading" String="SC"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Constraint on the basic start date for the activity"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpBscEndDateConstraintType">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Constraint on finish"/>
+                <Annotation Term="SAP__common.Heading" String="FC"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Constraint on the finish date of the activity"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintOrdOperationWorkDuration">
+                <Annotation Term="SAP__measures.Unit" Path="MaintOrdOpWorkDurationUnit"/>
+                <Annotation Term="SAP__common.Label" String="Work"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Work involved in the activity"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintOrdOpWorkDurationUnit">
+                <Annotation Term="SAP__common.IsUnit"/>
+                <Annotation Term="SAP__common.FieldControl" Path="__FieldControl/MaintOrdOpWorkDurationUnit"/>
+                <Annotation Term="SAP__common.Label" String="Unit for work"/>
+                <Annotation Term="SAP__common.Heading" String="Un."/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/ConstraintDateForBscStartDate">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/ConstraintTimeForBscStartTime">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/ConstraintDateForBscFinishDate">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/ConstraintTimeForBscFinishTime">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/Equipment">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Equipment"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Equipment Number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpErlstSchedldExecStrtDte">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpErlstSchedldExecStrtTme">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpErlstSchedldExecEndDte">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpErlstSchedldExecEndTme">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpLtstSchedldExecStrtDte">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpLtstSchedldExecStrtTme">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpLtstSchedldExecEndDte">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpLtstSchedldExecEndTme">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpActualExecutionStartDate">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpActualExecutionStartTime">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpActualExecutionEndDate">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OpActualExecutionEndTime">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/ActyConfFcstdEndDate">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/ActyConfFcstdEndTime">
+                <Annotation Term="SAP__core.Computed"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/ActyConfForecastedEndDateTime">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Time Stamp"/>
+                <Annotation Term="SAP__common.QuickInfo" String="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/ForecastWorkQuantity">
+                <Annotation Term="SAP__measures.Unit" Path="MaintOrdOperationDurationUnit"/>
+                <Annotation Term="SAP__common.Label" String="Forecast work"/>
+                <Annotation Term="SAP__common.Heading" String="Fcst work"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Forecasted work (actual + remaining)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/ActualWorkQuantity">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__measures.Unit" Path="MaintOrdOperationDurationUnit"/>
+                <Annotation Term="SAP__common.Label" String="Actual work"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintenanceActivityType">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="MaintActivityType"/>
+                <Annotation Term="SAP__common.Heading" String="MAT"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Maintenance activity type"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/BusinessArea">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Business Area"/>
+                <Annotation Term="SAP__common.Heading" String="BusA"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/ProfitCenter">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Profit Center"/>
+                <Annotation Term="SAP__common.Heading" String="Profit Ctr"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/CostingSheet">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Costing Sheet"/>
+                <Annotation Term="SAP__common.Heading" String="CostSh"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/TaxJurisdiction">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Tax Jurisdiction"/>
+                <Annotation Term="SAP__common.Heading" String="Tax Jur."/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/FunctionalArea">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Functional Area"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintOrdOperationIsMRPRelevant">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Reservation/Purc.req"/>
+                <Annotation Term="SAP__common.Heading" String="Res/PReq"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Reservation Relevance/Generation of Purchase Requisition"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintControllingObjectClass">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Object Class"/>
+                <Annotation Term="SAP__common.Heading" String="ObjCl"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/WrkCtrIntCapRqmtsDistr">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Int. dist. key"/>
+                <Annotation Term="SAP__common.Heading" String="Int. distr"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Distr.cap.reqmts (plant maint.,process order, network)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintOrdOperationOverheadCode">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Overhead key"/>
+                <Annotation Term="SAP__common.Heading" String="OH key"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintOrderOperationQuantity">
+                <Annotation Term="SAP__measures.Unit" Path="MaintOrdOperationQuantityUnit"/>
+                <Annotation Term="SAP__common.Label" String="Operation Quantity"/>
+                <Annotation Term="SAP__common.Heading" String="Operation Qty"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Operation Total Quantity"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintOrdOperationQuantityUnit">
+                <Annotation Term="SAP__common.IsUnit"/>
+                <Annotation Term="SAP__common.FieldControl" Path="__FieldControl/MaintOrdOperationQuantityUnit"/>
+                <Annotation Term="SAP__common.Label" String="Operation unit"/>
+                <Annotation Term="SAP__common.Heading" String="Un"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Unit of measure for activity"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/Assembly">
+                <Annotation Term="SAP__common.FieldControl" Path="__FieldControl/Assembly"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Assembly"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintOperationExecStageCode">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Execution Stage"/>
+                <Annotation Term="SAP__common.Heading" String="Maintenance Execution Stage"/>
+                <Annotation Term="SAP__common.QuickInfo" String="PRE MAIN POST"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintOrdOpAssgdWBSElmntInt">
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="WBS Internal ID"/>
+                <Annotation Term="SAP__common.Heading" String="WBS Elem"/>
+                <Annotation Term="SAP__common.QuickInfo" String="WBS Element"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/IsMarkedForDeletion">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Deletion Flag"/>
+                <Annotation Term="SAP__common.Heading" String="DF"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintOrderOperationInternalID">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Object number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/PurchaseRequisition">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Purchase Requisition"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Purchase Requisition Number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/PurchaseRequisitionItem">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="Requisition Item"/>
+                <Annotation Term="SAP__common.Heading" String="Item Number of Purchase Requisition"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Item Number of Purchase Requisition in Order"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintOrdOpProcessPhaseCode">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Process Phase"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintOrdOpProcessSubPhaseCode">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Process Subphase"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/AllMaintOrdCompCmtdQtsAreKept">
+                <Annotation Term="SAP__common.FieldControl" Path="__FieldControl/AllMaintOrdCompCmtdQtsAreKept"/>
+                <Annotation Term="SAP__common.Label" String="Keep Committed Qties"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Keep Committed Quantities of All Stock Components"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/ControllingArea">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Controlling Area"/>
+                <Annotation Term="SAP__common.Heading" String="COAr"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintOrderConfirmation">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="Confirmation"/>
+                <Annotation Term="SAP__common.Heading" String="Confirm."/>
+                <Annotation Term="SAP__common.QuickInfo" String="Completion confirmation number for the operation"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintOrderConfCntrValue">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="Counter"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Confirmation counter"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintOrdOpHasNoRemainingWork">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="No Remaining Work"/>
+                <Annotation Term="SAP__common.Heading" String="C"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Indicator: No Remaining Work Expected"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintOrdOpHasLeanServices">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="operation has srv"/>
+                <Annotation Term="SAP__common.Heading" String="Operation is linked to a service"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Indicator: operation is linked to a service"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintOrdOpDelivDateAdjustment">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Align Date"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Align Purchase Requisition Delivery Date"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/TaskListType">
+                <Annotation Term="SAP__core.Immutable"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Task List Type"/>
+                <Annotation Term="SAP__common.Heading" String="TLType"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/TaskListGroup">
+                <Annotation Term="SAP__core.Immutable"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Group"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Key for Task List Group"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/TaskListGroupCounter">
+                <Annotation Term="SAP__core.Immutable"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Group Counter"/>
+                <Annotation Term="SAP__common.Heading" String="GrC"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/__FieldControl">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__UI.HiddenFilter"/>
+                <Annotation Term="SAP__UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Container/MaintenanceOrderOperation">
+                <Annotation Term="SAP__capabilities.NavigationRestrictions">
+                    <Record>
+                        <PropertyValue Property="RestrictedProperties">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="_MaintenanceOrder"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.SearchRestrictions">
+                    <Record>
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>__FieldControl</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>__FieldControl</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                        <PropertyValue Property="QueryOptions">
+                            <Record>
+                                <PropertyValue Property="SelectSupported" Bool="true"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__core.OptimisticConcurrency">
+                    <Collection/>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType">
+                <Annotation Term="SAP__common.Label" String="Maintenance Order Operation API"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintenanceOrderDesc">
+                <Annotation Term="SAP__common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintOrdBasicStartDateTime">
+                <Annotation Term="SAP__common.Label" String="Time Stamp"/>
+                <Annotation Term="SAP__common.QuickInfo" String="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/MaintOrdBasicEndDateTime">
+                <Annotation Term="SAP__common.Label" String="Time Stamp"/>
+                <Annotation Term="SAP__common.QuickInfo" String="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/SerialNumber">
+                <Annotation Term="SAP__common.Label" String="Serial Number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/__CreateByAssociationControl/_MaintenanceOrderOperation">
+                <Annotation Term="SAP__common.Label" String="Dynamic CbA-Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Create by Association Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Create via Association Control Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/__EntityControl/Updatable">
+                <Annotation Term="SAP__common.Label" String="Dyn. Method Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Method Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Method Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/__FieldControl/Equipment">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/__FieldControl/FunctionalLocation">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/__FieldControl/LatestAcceptableCompletionDate">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/__FieldControl/MaintenancePlant">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderType/__FieldControl/MaintPriority">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OperationDescription">
+                <Annotation Term="SAP__common.Label" String="Operation Short Text"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OperationRequisitionerName">
+                <Annotation Term="SAP__common.Label" String="Requisitioner"/>
+                <Annotation Term="SAP__common.Heading" String="Requisnr."/>
+                <Annotation Term="SAP__common.QuickInfo" String="Name of requisitioner/requester"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/NumberOfCapacities">
+                <Annotation Term="SAP__common.Label" String="Number"/>
+                <Annotation Term="SAP__common.Heading" String="No."/>
+                <Annotation Term="SAP__common.QuickInfo" String="Number of capacities required"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OperationWorkPercent">
+                <Annotation Term="SAP__common.Label" String="Percent"/>
+                <Annotation Term="SAP__common.Heading" String="Pct"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Work percentage"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OperationGoodsRecipientName">
+                <Annotation Term="SAP__common.Label" String="Goods Recipient"/>
+                <Annotation Term="SAP__common.Heading" String="Recipient"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/OperationUnloadingPointName">
+                <Annotation Term="SAP__common.Label" String="Unloading Point"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintOrdOpConstraintStrtDteTme">
+                <Annotation Term="SAP__common.Label" String="Time Stamp"/>
+                <Annotation Term="SAP__common.QuickInfo" String="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintOrdOpCstrtFinishDteTme">
+                <Annotation Term="SAP__common.Label" String="Time Stamp"/>
+                <Annotation Term="SAP__common.QuickInfo" String="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintOrdOperationExecutionRate">
+                <Annotation Term="SAP__common.Label" String="Execution factor"/>
+                <Annotation Term="SAP__common.Heading" String="Fac"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Execution Factor"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/FunctionalLocation">
+                <Annotation Term="SAP__common.Label" String="Functional Location"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/MaintenanceObjectListItem">
+                <Annotation Term="SAP__common.Label" String="Object counters"/>
+                <Annotation Term="SAP__common.Heading" String="ObjC"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Object list counters"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/__FieldControl/AllMaintOrdCompCmtdQtsAreKept">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/__FieldControl/Assembly">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/__FieldControl/EAMPlannedDeliveryDurnInDays">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/__FieldControl/MaintOrdOperationDurationUnit">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/__FieldControl/MaintOrdOperationQuantityUnit">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/__FieldControl/MaintOrdOpWorkDurationUnit">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/__FieldControl/MaterialGroup">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/__FieldControl/OperationControlKey">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/__FieldControl/OperationPurgInfoRecdSearchTxt">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/__FieldControl/OperationSupplier">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/__FieldControl/OpExternalProcessingPriceUnit">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationType/__FieldControl/PurchasingGroup">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderControl/Equipment">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderControl/FunctionalLocation">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderControl/LatestAcceptableCompletionDate">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderControl/MaintenancePlant">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderControl/MaintPriority">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationControl/AllMaintOrdCompCmtdQtsAreKept">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationControl/Assembly">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationControl/EAMPlannedDeliveryDurnInDays">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationControl/MaintOrdOperationDurationUnit">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationControl/MaintOrdOperationQuantityUnit">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationControl/MaintOrdOpWorkDurationUnit">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationControl/MaterialGroup">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationControl/OperationControlKey">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationControl/OperationPurgInfoRecdSearchTxt">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationControl/OperationSupplier">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationControl/OpExternalProcessingPriceUnit">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderOperationControl/PurchasingGroup">
+                <Annotation Term="SAP__common.Label" String="Dyn. Field Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Field Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Field Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MaintenanceOrderCbAControl/_MaintenanceOrderOperation">
+                <Annotation Term="SAP__common.Label" String="Dynamic CbA-Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Create by Association Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Create via Association Control Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.EntityControl/Updatable">
+                <Annotation Term="SAP__common.Label" String="Dyn. Method Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Method Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Method Property"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

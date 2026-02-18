@@ -1,0 +1,79 @@
+<mvc:View controllerName="inspection.controller.main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:ndc="sap.ndc"
+    xmlns:l="sap.ui.layout"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <f:SimpleForm id="inspectionForm"
+                editable="true"
+                layout="ResponsiveGridLayout"
+                labelSpanL="3"
+                labelSpanM="3"
+                emptySpanL="4"
+                emptySpanM="4"
+                columnsL="1"
+                columnsM="1">
+                <f:content>
+                    <Label text="Inspection Date" required="true" />
+            <DatePicker id="inspectionDate" 
+                        value="{inspection>/date}"
+                        change="onValidateForm" />
+
+            <Label text="Equipment" required="true" />
+            <Input id="equipmentNumber" 
+                value="{inspection>/equipmentNumber}"
+                placeholder="Search by Number or Name..."
+                showValueHelp="true"
+                valueHelpRequest=".onValueHelpRequest"
+                change="onEquipmentChange"
+                liveChange="onValidateForm" />
+            
+            <Label text="Equipment" />
+            <Text id="equipmentText" text="{inspection>/equipmentName}" />
+
+            <Label text="Checklist Type" required="true" />
+            <Select id="checklistType"
+                selectedKey="{inspection>/checklistType}"
+                change="onValidateForm"
+                forceSelection="false"
+                items="{
+                    path: '/MaintCheckListTypeVH',
+                    filters: [{
+                        path: 'StatusIsInactive',
+                        operator: 'EQ',
+                        value1: false
+                    }],
+                    templateShareable: false
+                }">
+                <core:Item key="" text="Select Checklist Type..." />
+                
+                <core:Item 
+                    key="{MaintOperationalChecklistType}" 
+                    text="{MaintenanceChecklistTypeText}" />
+            </Select>
+
+            <Label text="Model Number" required="true" />
+            <Input id="modelNumber" 
+                value="{inspection>/modelNumber}"
+                liveChange="onValidateForm" />
+
+            <Label text="Current Reading (Mileage)" required="true" />
+            <StepInput id="currentReading" 
+                    value="{inspection>/currentReading}"
+                    change="onValidateForm" />
+                </f:content>
+            </f:SimpleForm>
+        </content>
+        
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+                <Button id="btnNext" type="Emphasized" text="Next" enabled="false" press="onCreate" />
+                <Button text="Cancel" press="onCancel" />
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>

@@ -1,0 +1,167 @@
+{
+  "_version": "1.60.0",
+  "sap.app": {
+    "id": "inspection",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.20.1",
+      "toolsId": "e1bc4898-199b-475b-99b8-bdb1c29ac234"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/sap/opu/odata4/sap/zz1_maint_order_app_sb/srvd/sap/zz1_maint_order_app_sd/0001/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/zz1_maint_order_app_sd/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      },
+      "measurementdocument": {
+        "uri": "/sap/opu/odata4/sap/zui_measurementdocument_sb/srvd/sap/zui_measurementdocument_o4/0001/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/zui_measurementdocument_o4/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      },
+      "zui_maint_order_o4": {
+        "uri": "/sap/opu/odata4/sap/zui_maint_order_sb/srvd/sap/zui_maint_order_o4/0001/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/zui_maint_order_o4/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "equipmentInspection-create": {
+          "semanticObject": "equipmentInspection",
+          "action": "create",
+          "title": "{{equipmentInspection-create.flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.120.34",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "inspection.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "measurementdocument": {
+        "dataSource": "measurementdocument",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "zui_maint_order_o4": {
+        "dataSource": "zui_maint_order_o4",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "inspection.view",
+        "async": true,
+        "viewPath": "inspection.view"
+      },
+      "routes": [
+        {
+          "name": "Routemain",
+          "pattern": ":?query:",
+          "target": [
+            "Targetmain"
+          ]
+        }
+      ],
+      "targets": {
+        "Targetmain": {
+          "id": "main",
+          "name": "main"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "inspection.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    }
+  }
+}

@@ -1,0 +1,26 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "4.0"
+metadata:
+  name: inspection
+type: application
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
+  customTasks:
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        target:
+          destination: DEV_DS4_100
+          url: http://ds4:44300
+          client: '100'
+        app:
+          name: ZEQUIP_INSP
+          description: Create Equipment Inspection
+          package: ZEQUIPMENT_MANAGEMENT
+          transport: DS4K900732
+        exclude:
+          - /test/

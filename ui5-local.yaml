@@ -1,0 +1,73 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "4.0"
+metadata:
+  name: inspection
+type: application
+framework:
+  name: SAPUI5
+  version: 1.120.34
+  libraries:
+    - name: sap.m
+    - name: sap.ui.core
+    - name: sap.ushell
+    - name: themelib_sap_horizon
+server:
+  customMiddleware:
+    - name: fiori-tools-appreload
+      afterMiddleware: compression
+      configuration:
+        port: 35729
+        path: webapp
+        delay: 300
+    - name: fiori-tools-preview
+      afterMiddleware: fiori-tools-appreload
+      configuration:
+        flp:
+          theme: sap_horizon
+    - name: fiori-tools-proxy
+      afterMiddleware: compression
+      configuration:
+        ignoreCertErrors: false
+        backend:
+          - path: /sap
+            url: http://ds4:44300
+            authenticationType: BasicAuthentication
+            client: '110'
+            destination: BAS_110_Jeric
+          - url: http://ds4:44300
+            client: '110'
+            authenticationType: BasicAuthentication
+            destination: BAS_110_Jeric
+            path: /sap/opu/odata4/sap/api_measurementdocument/srvd_a2x/sap/measurementdocument/0001/
+          - url: http://ds4:44300
+            client: '110'
+            authenticationType: BasicAuthentication
+            destination: BAS_110_Jeric
+            path: /sap/opu/odata4/sap/zui_maint_order_sb/srvd/sap/zui_maint_order_o4/0001/
+    - name: sap-fe-mockserver
+      beforeMiddleware: csp
+      configuration:
+        mountPath: /
+        services:
+          - urlPath: /sap/opu/odata4/sap/ui_maintenanceorder_manage/srvd/sap/ui_maintenanceorder_manage/0001
+            metadataPath: ./webapp/localService/mainService/metadata.xml
+            mockdataPath: ./webapp/localService/mainService/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata4/sap/api_measurementdocument/srvd_a2x/sap/measurementdocument/0001
+            metadataPath: ./webapp/localService/measurementdocument/metadata.xml
+            mockdataPath: ./webapp/localService/measurementdocument/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata4/sap/zui_maint_order_sb/srvd/sap/zui_maint_order_o4/0001
+            metadataPath: ./webapp/localService/zui_maintorder/metadata.xml
+            mockdataPath: ./webapp/localService/mainService/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata4/sap/zui_measurementdocument_sb/srvd/sap/zui_measurementdocument_o4/0001
+            metadataPath: ./webapp/localService/zui_measurementdocument_o4/metadata.xml
+            mockdataPath: ./webapp/localService/measurementdocument/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata4/sap/zz1_maint_order_app_sb/srvd/sap/zz1_maint_order_app_sd/0001
+            metadataPath: ./webapp/localService/zz1_maint_order_app_sd/metadata.xml
+            mockdataPath: ./webapp/localService/mainService/data
+            generateMockData: true
+        annotations: []
