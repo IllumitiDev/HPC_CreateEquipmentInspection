@@ -26,13 +26,14 @@ sap.ui.define([
             let oRouter = UIComponent.getRouterFor(this);
     
             if (oRouter) {
-                var oRoute = oRouter.getRoute("Routemain"); 
+                let oRoute = oRouter.getRoute("Routemain"); 
                 if (oRoute) {
                     oRoute.attachPatternMatched(this._onObjectMatched, this);
                 } else {
                     console.error("The route name 'Routemain' was not found in manifest.json");
                 }
             }
+            this._oMainDataModel.setSizeLimit(10000);
         },
 
         handleChange: function (oEvent) {
@@ -52,8 +53,11 @@ sap.ui.define([
 
                 this._getEquipment(sEquipment)
                     .then(oRes => {
-                        if (oRes && oRes.EquipmentName) {
-                            this._oInspectionDataModel.setProperty("/equipmentName", oRes.EquipmentName);
+                        if (oRes && oRes.equipment.EquipmentName) {
+                            this._oInspectionDataModel.setProperty("/equipmentName", oRes.equipment.EquipmentName);
+
+                            // This sets the 'min' floor for the StepInput
+                            this._oInspectionDataModel.setProperty("/latestReadingValue", oRes.latestReading.MeasurementReading);  
                         } else {
                             // Handle case where equipment exists but has no name
                             this._oInspectionDataModel.setProperty("/equipmentName", "Name not found");
@@ -95,7 +99,7 @@ sap.ui.define([
                 // Fetch Inspection Lot
                 let sLotNum = "";
                 try {
-                    sLotNum = await this._getInspectionLot(sEquip);
+                    sLotNum = await this._getInspectionLot(sEquip, sOrderNum);
                 } catch (e) {
                     // If Lot doesn't exist, we stop here and show an error
                     sap.ui.core.BusyIndicator.hide();
@@ -118,22 +122,46 @@ sap.ui.define([
             }
         },
 
-        onValidateForm: function() {
-            const oData = this.getView().getModel("inspection").getData();
+        onReadingChange: function(oEvent) {
+            const fValue = oEvent.getParameter("value");
+            const fMin = this._oInspectionDataModel.getProperty("/latestReadingValue");
+            const oStepInput = oEvent.getSource();
+
+            if (fValue < fMin) {
+                oStepInput.setValueState("Error");
+                oStepInput.setValueStateText("New reading must be greater than or equal to " + fMin);
+            } else {
+                oStepInput.setValueState("None");
+            }
+
+            this.onValidateForm(fValue);
+        },
+
+        onValidateForm: function(sCurrentReadingValue) {
+            const oModel = this.getView().getModel("inspection");
+            const oData = oModel.getData();
             const oBtnNext = this.byId("btnNext");
 
-            // Ensure these evaluate to actual booleans
+            // 1. Numeric Conversion for Reading
+            const fCurrent = parseFloat(sCurrentReadingValue);
+            const fMin = parseFloat(oData.latestReadingValue) || 0;
+
+            // 2. Standard Field Validations
             const bIsDateValid = !!oData.date;
             const bIsEquipValid = !!(oData.equipmentNumber && oData.equipmentNumber.trim());
             const bIsTypeValid = !!(oData.checklistType && oData.checklistType !== "");
             const bIsModelValid = !!(oData.modelNumber && oData.modelNumber.trim());
-            const bIsReadingValid = typeof oData.currentReading === "number" && oData.currentReading > 0;
 
-            // Combine them into one clean boolean
+            // 3. Logic Validation for Reading
+            // It must be a number, it must be > 0, and it must be >= the floor (fMin)
+            const bIsReadingValid = !isNaN(fCurrent) && fCurrent > 0 && fCurrent >= fMin;
+
+            // 4. Final Boolean Combination
             const bFormValid = bIsDateValid && bIsEquipValid && bIsTypeValid && bIsModelValid && bIsReadingValid;
 
-            // Use !! to be absolutely sure no string "true" or "" gets through
-            oBtnNext.setEnabled(!!bFormValid); 
+            // Update button state
+            oBtnNext.setEnabled(!!bFormValid);
+            oBtnNext.invalidate();
         },
 
         _updateValueState: function(oControl) {
@@ -146,20 +174,45 @@ sap.ui.define([
 
         _getEquipment: function(sEquipmentNumber) {
             return new Promise((resolve, reject) => {
-                const sPath = `/EquipmentVH('${sEquipmentNumber}')`;
-                
                 const oModel = this._oMainDataModel;
+
+                // 1. STANDARD PADDING (for EquipmentVH)
+                // '31200010' -> '000000000031200010'
+                const sPaddedEquip = sEquipmentNumber.padStart(18, '0');
                 
-                // Create a context binding
+                // 2. PREFIX PADDING (for EquipmentReading)
+                // '31200010' -> 'IE000000000031200010'
+                const sPrefixEquip = "IE" + sPaddedEquip;
+                const sPath = `/EquipmentVH('${sPaddedEquip}')`;
                 const oContextBinding = oModel.bindContext(sPath);
 
-                // Request the data using .requestObject()
-                oContextBinding.requestObject().then((oData) => {
-                    console.log("Equipment found:", oData);
-                    resolve(oData);
+                oContextBinding.requestObject().then((oEquipData) => {
+                    console.log("Equipment Header Found:", oEquipData);
+
+                    const oListBinding = oModel.bindList("/EquipmentReading", null, null, [
+                        new sap.ui.model.Filter("Equipment", sap.ui.model.FilterOperator.EQ, sPrefixEquip)
+                    ], {
+                        "$orderby": "MeasurementDocument desc"
+                    });
+
+                    // We request contexts without a length restriction in parameters,
+                    // but we only ask for the first 10 contexts to keep it performant.
+                    return oListBinding.requestContexts(0, 10).then((aContexts) => {
+                        let oReadingData = null;
+                        
+                        // Even if we fetched 10, index 0 is the newest because of the $orderby
+                        if (aContexts && aContexts.length > 0) {
+                            oReadingData = aContexts[0].getObject();
+                        }
+
+                        resolve({
+                            equipment: oEquipData,
+                            latestReading: oReadingData
+                        });
+                    });
+
                 }).catch((oError) => {
-                    console.error("Read Error:", oError);
-                    // If V4 returns a 404, it triggers the catch block
+                    console.error("Fetch Error:", oError);
                     reject(oError);
                 });
             });
@@ -189,74 +242,6 @@ sap.ui.define([
             }
         },
 
-        // _createMaintenanceOrder: function(sEquipmentNumber, sChecklistType) {
-        //     return new Promise((resolve, reject) => {
-        //         // Only including essential parameters for a standard PM Order
-        //         let oHeaderPayload = {
-        //             "OrderType": "PM07",
-        //             "MaintenanceOrderDesc": "Maint Order - HK1",
-        //             "Equipment": sEquipmentNumber,
-        //             "MainWorkCenter": "MEC",
-        //             "MainWorkCenterInternalID": "10000000",
-        //             "MaintenancePlanningPlant": "1000",
-        //             "MainWorkCenterPlant": "1000",
-        //             "MaintenancePlant": "1000",
-        //             "MaintPriority": "1"
-        //         };
-        //         let oOperationPayload = {
-        //             "MaintenanceOrderOperation": "0010",
-        //             "MaintenanceOrderSubOperation": "",
-        //             "OperationControlKey": "PM01",
-        //             "OperationWorkCenterInternalID": "10000000",
-        //             // "WorkCenter": "MEC",
-        //             "Plant": "1000",
-        //             "OperationDescription": "Inspection Task",
-        //             // "MaintOperationalChecklistType": sChecklistType,
-        //             "OperationPersonResponsible": "59",
-        //             "MaintOrdOperationWorkDuration": "1",
-        //             "MaintOrdOpWorkDurationUnit": "H",
-        //             "MaintOrderOperationQuantity": "1",
-        //             "MaintOrdOperationQuantityUnit": "H"
-        //         };
-
-        //         // this._oMaintenanceOrderDataModel.create("/MaintenanceOrder", oPayload, {
-        //         //     success: function(oData) {
-        //         //         console.log("Order created successfully:", oData.MaintenanceOrder);
-        //         //         resolve(oData);
-        //         //     },
-        //         //     error: function(oError) {
-        //         //         console.error("Creation failed:", oError);
-        //         //         reject(oError);
-        //         //     }
-        //         // });
-
-
-        //         // 3. Create the List Binding for the Header
-        //         const oHeaderBinding = this._oMaintenanceOrderDataModel.bindList("/MaintenanceOrder");
-                
-        //         // 4. Create the Header Context
-        //         const oHeaderContext = oHeaderBinding.create(oHeaderPayload);
-
-        //         // 5. Create the Operation Binding *relative* to the Header Context
-        //         // This ensures the dependency: No Header = No Operation
-        //         const oOpBinding = this._oMaintenanceOrderDataModel.bindList("_MaintenanceOrderOperation", oHeaderContext);
-        //         oOpBinding.create(oOperationPayload);
-
-        //         // 6. Monitor the Header's creation status
-        //         oHeaderContext.created().then(() => {
-        //             // Success: Both Header and Operation are created
-        //             const oCreatedData = oHeaderContext.getObject();
-        //             resolve(oCreatedData);
-        //         }).catch((oError) => {
-        //             // Failure: Server rejected the Header (and thus the Operation)
-        //             if (oHeaderContext.isTransient()) {
-        //                 oHeaderContext.delete(); 
-        //             }
-        //             reject(oError);
-        //         });
-        //     });
-        // },
-
         _createMaintenanceOrder: function(sEquipmentNumber, sChecklistType) {
             return new Promise((resolve, reject) => {
                 const oModel = this.getOwnerComponent().getModel();
@@ -285,13 +270,20 @@ sap.ui.define([
                     }),
                     success: (oResponse) => {
                         let oData = typeof oResponse === "string" ? JSON.parse(oResponse) : oResponse;
+                        console.log("Maintenance Order created:", oData.maintOrderNumber);
                         resolve(oData);
                     },
                     error: (oXhr) => {
-                        // If it returns 403, we need to do the 'Fetch' dance again 
-                        // but specifically through this AJAX call.
-                        if (oXhr.status === 403 || oXhr.getResponseHeader("x-csrf-token") === "Required") {
-                            this._retryWithFreshToken(sEquipmentNumber, sChecklistType).then(resolve).catch(reject);
+                        const oResponse = oXhr.responseJSON || (typeof oXhr.responseText === "string" ? JSON.parse(oXhr.responseText) : null);
+                        
+                        // Check for the specific SAP CSRF error code
+                        if (oXhr.status === 403 || (oResponse && oResponse.error && oResponse.error.code === "/IWBEP/CM_V4H_RUN/042")) {
+                            console.warn("CSRF Token expired. Attempting automatic refresh...");
+                            
+                            // Use the retry function we created earlier
+                            this._retryWithFreshToken(sPaddedEquip, sChecklistType)
+                                .then(resolve)
+                                .catch(reject);
                         } else {
                             reject(oXhr);
                         }
@@ -384,27 +376,29 @@ sap.ui.define([
             });
         },
 
-        _getInspectionLot: function(sEquipment) {
+        _getInspectionLot: function(sEquipment, sOrderNumber) {
             return new Promise((resolve, reject) => {
-                const oModel = this._oMainDataModel; // Reference to your OData V4 model
+                const oModel = this._oMainDataModel;
                 const sCleanEquip = sEquipment.replace(/^0+/, "");
                 
-                // 1. Create the List Binding for the "InspectionLot" entity set
-                const oListBinding = oModel.bindList("/InspectionLot", null, null, [
-                    new sap.ui.model.Filter("Equipment", sap.ui.model.FilterOperator.EQ, sCleanEquip)
+                // 1. Define a Sorter (Descending) to bring the "last" record to the top
+                // Replace "InspectionLot" with "CreatedOn" or similar if you want date-based logic
+                const oSorter = new sap.ui.model.Sorter("InspectionLot", true); 
+
+                // 2. Create the List Binding with Filter AND Sorter
+                const oListBinding = oModel.bindList("/InspectionLot", null, [oSorter], [
+                    new sap.ui.model.Filter("Equipment", sap.ui.model.FilterOperator.EQ, sCleanEquip),
+                    new sap.ui.model.Filter("ManufacturingOrder", sap.ui.model.FilterOperator.EQ, sOrderNumber)
                 ]);
 
-                // Request the contexts from the server
-                // requestContexts(start index, length) returns a Promise
+                // 3. Request only the first context (which is now the "last" record due to sorting)
                 oListBinding.requestContexts(0, 1).then((aContexts) => {
                     if (aContexts && aContexts.length > 0) {
-                        // 3. Extract the data object from the first context found
                         const oData = aContexts[0].getObject();
-                        console.log("Inspection Lot found:", oData.InspectionLot);
+                        console.log("Latest Inspection Lot found:", oData.InspectionLot);
                         resolve(oData.InspectionLot);
                     } else {
-                        // Handle case where no lot is found for the equipment
-                        reject(new Error("No Inspection Lot found for equipment: " + sCleanEquip));
+                        reject(new Error("No Inspection Lot found for equipment: " + sCleanEquip) + ", order number: " + sOrderNumber);
                     }
                 }).catch((oError) => {
                     console.error("Lot Fetch Error:", oError);

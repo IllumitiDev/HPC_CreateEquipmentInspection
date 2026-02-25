@@ -33,8 +33,7 @@
                 <suggestionItems>
                     <core:ListItem key="{Equipment}" text="{Equipment}" additionalText="{EquipmentName}" />
                 </suggestionItems>
-
-                </Input>
+            </Input>
             
             <Label text="" />
             <Text id="equipmentText" text="{inspection>/equipmentName}" />
@@ -66,9 +65,16 @@
                 liveChange="onValidateForm" />
 
             <Label text="Current Reading (Mileage)" required="true" />
-            <StepInput id="currentReading" 
-                    value="{inspection>/currentReading}"
-                    change="onValidateForm" />
+            <Input id="currentReading" 
+                value="{inspection>/currentReading}"
+                type="Number"
+                placeholder="Enter reading (Min: {inspection>/latestReadingValue})"
+                liveChange="onReadingChange" />
+            <Label text="" />
+            <Text 
+                text="Minimum required: {inspection>/latestReadingValue}" 
+                visible="{= ${inspection>/latestReadingValue} > 0 }"
+                state="Information" />
                 </f:content>
             </f:SimpleForm>
         </content>
