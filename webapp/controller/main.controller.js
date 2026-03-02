@@ -56,8 +56,8 @@ sap.ui.define([
                         if (oRes && oRes.equipment.EquipmentName) {
                             this._oInspectionDataModel.setProperty("/equipmentName", oRes.equipment.EquipmentName);
 
-                            // This sets the 'min' floor for the StepInput
-                            this._oInspectionDataModel.setProperty("/latestReadingValue", oRes.latestReading.MeasurementReading);  
+                            this._oInspectionDataModel.setProperty("/latestReadingValue", oRes.latestReading.LastReading);
+                            this._oInspectionDataModel.setProperty("/latestMeasuringPoint", oRes.latestReading.MeasuringPoint);  
                         } else {
                             // Handle case where equipment exists but has no name
                             this._oInspectionDataModel.setProperty("/equipmentName", "Name not found");
@@ -150,14 +150,14 @@ sap.ui.define([
             const bIsDateValid = !!oData.date;
             const bIsEquipValid = !!(oData.equipmentNumber && oData.equipmentNumber.trim());
             const bIsTypeValid = !!(oData.checklistType && oData.checklistType !== "");
-            const bIsModelValid = !!(oData.modelNumber && oData.modelNumber.trim());
+            // const bIsModelValid = !!(oData.modelNumber && oData.modelNumber.trim());
 
             // 3. Logic Validation for Reading
             // It must be a number, it must be > 0, and it must be >= the floor (fMin)
             const bIsReadingValid = !isNaN(fCurrent) && fCurrent > 0 && fCurrent >= fMin;
 
             // 4. Final Boolean Combination
-            const bFormValid = bIsDateValid && bIsEquipValid && bIsTypeValid && bIsModelValid && bIsReadingValid;
+            const bFormValid = bIsDateValid && bIsEquipValid && bIsTypeValid && bIsReadingValid;
 
             // Update button state
             oBtnNext.setEnabled(!!bFormValid);
@@ -226,7 +226,7 @@ sap.ui.define([
                 equipmentNumber: "",
                 equipmentName: "",
                 checklistType: "",
-                modelNumber: "",
+                // modelNumber: "",
                 currentReading: 0
             });
         },
@@ -275,16 +275,12 @@ sap.ui.define([
                     },
                     error: (oXhr) => {
                         const oResponse = oXhr.responseJSON || (typeof oXhr.responseText === "string" ? JSON.parse(oXhr.responseText) : null);
-                        
-                        // Check for the specific SAP CSRF error code
+    
                         if (oXhr.status === 403 || (oResponse && oResponse.error && oResponse.error.code === "/IWBEP/CM_V4H_RUN/042")) {
-                            console.warn("CSRF Token expired. Attempting automatic refresh...");
-                            
-                            // Use the retry function we created earlier
-                            this._retryWithFreshToken(sPaddedEquip, sChecklistType)
-                                .then(resolve)
-                                .catch(reject);
+                            this._retryWithFreshToken(sPaddedEquip, sChecklistType).then(resolve).catch(reject);
                         } else {
+                            // Parse and show the message on screen
+                            this._handleAjaxError(oXhr);
                             reject(oXhr);
                         }
                     }
@@ -332,7 +328,7 @@ sap.ui.define([
                         });
                     },
                     error: (oErr) => {
-                        console.error("Could not refresh CSRF token.");
+                        this._handleAjaxError(oErr); // Show the "Counter Overflow" message
                         reject(oErr);
                     }
                 });
@@ -341,13 +337,12 @@ sap.ui.define([
 
         _createMeasurementDocument: function(sOrderNumber) {
             return new Promise((resolve, reject) => {
-                let oInspectionData = this._oInspectionDataModel.getData();
-                
+                const oInspectionData = this._oInspectionDataModel.getData();
                 const oListBinding = this._oMeasurementdocumentDataModel.bindList("/ZC_MeasurementDoc");
 
-
-                const oPayload = {
-                    "MeasuringPoint": "1", 
+                // 1. Create the entry
+                const oContext = oListBinding.create({
+                    "MeasuringPoint": oInspectionData.latestMeasuringPoint, 
                     "MeasurementReading": parseFloat(oInspectionData.currentReading),
                     "MeasurementReadingInEntryUoM": parseFloat(oInspectionData.currentReading),
                     "MeasurementReadingEntryUoM": "MI",
@@ -358,20 +353,36 @@ sap.ui.define([
                     "MsmtIsDoneAfterTaskCompltn": true,
                     "MsmtRdngStatus": "1",
                     "MsmtRdngByUser": "User"
+                });
+
+                // 2. THE SECRET SAUCE: Listen for the error via the model's message manager
+                const oMessageManager = sap.ui.getCore().getMessageManager();
+                const oMessageModel = oMessageManager.getMessageModel();
+                const oMessageBinding = oMessageModel.bindList("/", undefined, undefined, [
+                    new sap.ui.model.Filter("processor", sap.ui.model.FilterOperator.EQ, this._oMeasurementdocumentDataModel)
+                ]);
+
+                const fnHandler = (oEvent) => {
+                    const aMessages = oMessageBinding.getContexts().map(c => c.getObject());
+                    const oError = aMessages.find(m => m.type === "Error");
+
+                    if (oError) {
+                        oMessageBinding.detachChange(fnHandler);
+                        sap.ui.core.BusyIndicator.hide(); // STOP the indicator
+                        reject(oError);
+                    }
                 };
 
-                // Create the entry
-                const oContext = oListBinding.create(oPayload);
+                oMessageBinding.attachChange(fnHandler);
 
+                // 3. Keep the standard promise for SUCCESS
                 oContext.created().then(() => {
-                    const oCreatedData = oContext.getObject();
-                    console.log("Measurement Doc Created:", oCreatedData.MeasurementDocument);
-                    resolve(oCreatedData);
-                }).catch((oError) => {
-                    if (oContext.isTransient()) {
-                        oContext.delete(); 
-                    }
-                    reject(oError);
+                    oMessageBinding.detachChange(fnHandler);
+                    resolve(oContext.getObject());
+                }).catch((err) => {
+                    // This usually only catches network/auth errors, not business validation
+                    sap.ui.core.BusyIndicator.hide();
+                    reject(err);
                 });
             });
         },
@@ -457,6 +468,19 @@ sap.ui.define([
                 title: "Error",
                 details: sDetails
             });
-        }
+        },
+
+        _handleAjaxError: function(oXhr) {
+    let sMessage = "An unexpected error occurred.";
+    try {
+        const oResponse = oXhr.responseJSON || JSON.parse(oXhr.responseText);
+        sMessage = oResponse.error.message;
+    } catch (e) {
+        sMessage = oXhr.statusText || "Server error";
+    }
+    
+    sap.m.MessageBox.error(sMessage, { title: "Backend Error" });
+    sap.ui.core.BusyIndicator.hide(); // Crucial: Stop the spinner!
+},
     });
 });

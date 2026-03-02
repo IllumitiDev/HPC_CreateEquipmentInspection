@@ -59,10 +59,10 @@
                     text="{MaintenanceChecklistTypeText}" />
             </Select>
 
-            <Label text="Model Number" required="true" />
+            <!-- <Label text="Model Number" required="true" />
             <Input id="modelNumber" 
                 value="{inspection>/modelNumber}"
-                liveChange="onValidateForm" />
+                liveChange="onValidateForm" /> -->
 
             <Label text="Current Reading (Mileage)" required="true" />
             <Input id="currentReading" 
@@ -73,8 +73,7 @@
             <Label text="" />
             <Text 
                 text="Minimum required: {inspection>/latestReadingValue}" 
-                visible="{= ${inspection>/latestReadingValue} > 0 }"
-                state="Information" />
+                visible="{= ${inspection>/latestReadingValue} > -1 }"/>
                 </f:content>
             </f:SimpleForm>
         </content>
