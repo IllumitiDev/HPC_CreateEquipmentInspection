@@ -29,7 +29,7 @@
                 change="onEquipmentChange"
                 liveChange="onValidateForm" 
                 showSuggestion="true"
-                suggestionItems="{/EquipmentVH}">
+                >
                 <suggestionItems>
                     <core:ListItem key="{Equipment}" text="{Equipment}" additionalText="{EquipmentName}" />
                 </suggestionItems>
@@ -64,15 +64,15 @@
                 value="{inspection>/modelNumber}"
                 liveChange="onValidateForm" /> -->
 
-            <Label text="Current Reading (Mileage)" required="true" />
+            <Label text="Current Reading" required="true" />
             <Input id="currentReading" 
                 value="{inspection>/currentReading}"
                 type="Number"
-                placeholder="Enter reading (Min: {inspection>/latestReadingValue})"
+                placeholder="Enter reading (Last Reading: {inspection>/latestReadingValue})"
                 liveChange="onReadingChange" />
             <Label text="" />
             <Text 
-                text="Minimum required: {inspection>/latestReadingValue}" 
+                text="Last Reading: {inspection>/latestReadingValue}" 
                 visible="{= ${inspection>/latestReadingValue} > -1 }"/>
                 </f:content>
             </f:SimpleForm>

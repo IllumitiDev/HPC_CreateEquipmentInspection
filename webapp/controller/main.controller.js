@@ -34,6 +34,19 @@ sap.ui.define([
                 }
             }
             this._oMainDataModel.setSizeLimit(10000);
+
+            const sToday = new Date().toISOString().split('T')[0];
+            const oInput = this.byId("equipmentNumber");
+    
+            // Dynamically update the suggestion items path
+            oInput.bindAggregation("suggestionItems", {
+                path: "/EquipmentVH(P_KeyDate=" + sToday + ")/Set",
+                template: new sap.ui.core.ListItem({
+                    key: "{Equipment}",
+                    text: "{Equipment}",
+                    additionalText: "{EquipmentName}"
+                })
+            });
         },
 
         handleChange: function (oEvent) {
@@ -48,6 +61,14 @@ sap.ui.define([
         onEquipmentChange: function(oEvent){
             let sEquipment = oEvent.getParameter("value");
 
+            this._oInspectionDataModel.setProperty("/currentReading", null);
+            this._oInspectionDataModel.setProperty("/latestReadingValue", null); // Clear the floor
+            this._oInspectionDataModel.setProperty("/equipmentName", "");
+            
+            const oInput = this.byId("currentReading");
+            oInput.setValueState("None"); // Remove any red error borders
+            this.onValidateForm();
+
             if (sEquipment && sEquipment.trim() !== "") {
                 sap.ui.core.BusyIndicator.show(0);
 
@@ -56,8 +77,18 @@ sap.ui.define([
                         if (oRes && oRes.equipment.EquipmentName) {
                             this._oInspectionDataModel.setProperty("/equipmentName", oRes.equipment.EquipmentName);
 
-                            this._oInspectionDataModel.setProperty("/latestReadingValue", oRes.latestReading.LastReading);
-                            this._oInspectionDataModel.setProperty("/latestMeasuringPoint", oRes.latestReading.MeasuringPoint);  
+                            if (oRes && oRes.latestReading) {
+                                // Data exists: set the values
+                                this._oInspectionDataModel.setProperty("/latestReadingValue", oRes.latestReading.LastReading);
+                                this._oInspectionDataModel.setProperty("/latestMeasuringPoint", oRes.latestReading.MeasuringPoint);  
+                                this._oInspectionDataModel.setProperty("/latestMeasuringPointUoM", oRes.latestReading.UoM);
+                            } else {
+                                // Data does NOT exist: Clear fields and show the Toast
+                                this._oInspectionDataModel.setProperty("/latestReadingValue", null);
+                                this._oInspectionDataModel.setProperty("/latestMeasuringPoint", null);
+                                
+                                sap.m.MessageBox.error(`No Measurement Point assigned to Equipment (${oRes.equipment.Equipment}) ${oRes.equipment.EquipmentName}`);
+                            }
                         } else {
                             // Handle case where equipment exists but has no name
                             this._oInspectionDataModel.setProperty("/equipmentName", "Name not found");
@@ -110,7 +141,7 @@ sap.ui.define([
                 // Show Toast and Navigate
                 sap.ui.core.BusyIndicator.hide();
                 sap.m.MessageToast.show("Success! Redirecting to Inspection Results...", {
-                    duration: 2000,
+                    duration: 500,
                     onClose: function() {
                         this._navigateToInspectionResults(sLotNum);
                     }.bind(this)
@@ -155,9 +186,10 @@ sap.ui.define([
             // 3. Logic Validation for Reading
             // It must be a number, it must be > 0, and it must be >= the floor (fMin)
             const bIsReadingValid = !isNaN(fCurrent) && fCurrent > 0 && fCurrent >= fMin;
+            const bMeasuringPoint = !!(oData.latestMeasuringPoint && oData.latestMeasuringPoint !== null);
 
             // 4. Final Boolean Combination
-            const bFormValid = bIsDateValid && bIsEquipValid && bIsTypeValid && bIsReadingValid;
+            const bFormValid = bIsDateValid && bIsEquipValid && bIsTypeValid && bIsReadingValid && bMeasuringPoint;
 
             // Update button state
             oBtnNext.setEnabled(!!bFormValid);
@@ -183,7 +215,10 @@ sap.ui.define([
                 // 2. PREFIX PADDING (for EquipmentReading)
                 // '31200010' -> 'IE000000000031200010'
                 const sPrefixEquip = "IE" + sPaddedEquip;
-                const sPath = `/EquipmentVH('${sPaddedEquip}')`;
+                // const sPath = `/EquipmentVH('${sPaddedEquip}')`;
+
+                const sToday = new Date().toISOString().split('T')[0]; // Gets 2026-03-12
+                const sPath = `/EquipmentVH(P_KeyDate=${sToday})/Set('${sPaddedEquip}')`;
                 const oContextBinding = oModel.bindContext(sPath);
 
                 oContextBinding.requestObject().then((oEquipData) => {
@@ -339,17 +374,20 @@ sap.ui.define([
             return new Promise((resolve, reject) => {
                 const oInspectionData = this._oInspectionDataModel.getData();
                 const oListBinding = this._oMeasurementdocumentDataModel.bindList("/ZC_MeasurementDoc");
+                
+                let date = new Date();
+                date.setSeconds(date.getTime() - 60000);
 
                 // 1. Create the entry
                 const oContext = oListBinding.create({
                     "MeasuringPoint": oInspectionData.latestMeasuringPoint, 
                     "MeasurementReading": parseFloat(oInspectionData.currentReading),
                     "MeasurementReadingInEntryUoM": parseFloat(oInspectionData.currentReading),
-                    "MeasurementReadingEntryUoM": "MI",
+                    "MeasurementReadingEntryUoM": oInspectionData.latestMeasuringPointUoM,
                     "MsmtDocumentReferredOrder": sOrderNumber,
                     "MeasurementDocumentText": "Inspection Reading",
-                    "MsmtRdngDate": oInspectionData.date, // Format should be YYYY-MM-DD
-                    "MsmtRdngTime": new Date().toLocaleTimeString('en-GB', { hour12: false }), // HH:MM:SS
+                    "MsmtRdngDate": new Date(oInspectionData.date).toISOString().split('T')[0], // Format should be YYYY-MM-DD
+                    "MsmtRdngTime": date.toTimeString().split(' ')[0], // HH:MM:SS
                     "MsmtIsDoneAfterTaskCompltn": true,
                     "MsmtRdngStatus": "1",
                     "MsmtRdngByUser": "User"
@@ -471,16 +509,16 @@ sap.ui.define([
         },
 
         _handleAjaxError: function(oXhr) {
-    let sMessage = "An unexpected error occurred.";
-    try {
-        const oResponse = oXhr.responseJSON || JSON.parse(oXhr.responseText);
-        sMessage = oResponse.error.message;
-    } catch (e) {
-        sMessage = oXhr.statusText || "Server error";
-    }
-    
-    sap.m.MessageBox.error(sMessage, { title: "Backend Error" });
-    sap.ui.core.BusyIndicator.hide(); // Crucial: Stop the spinner!
-},
+            let sMessage = "An unexpected error occurred.";
+            try {
+                const oResponse = oXhr.responseJSON || JSON.parse(oXhr.responseText);
+                sMessage = oResponse.error.message;
+            } catch (e) {
+                sMessage = oXhr.statusText || "Server error";
+            }
+            
+            sap.m.MessageBox.error(sMessage, { title: "Backend Error" });
+            sap.ui.core.BusyIndicator.hide(); // Crucial: Stop the spinner!
+        },
     });
 });

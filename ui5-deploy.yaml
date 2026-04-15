@@ -20,7 +20,7 @@ builder:
         app:
           name: ZEQUIP_INSP
           description: Create Equipment Inspection
-          package: ZEQUIPMENT_MANAGEMENT
+          package: ZPM_MAINT_ORDER_APP
           transport: DS4K900732
         exclude:
           - /test/
