@@ -196,6 +196,10 @@ sap.ui.define([
             oBtnNext.invalidate();
         },
 
+        onCancel: function(oEvent){
+            this._setInitialData();
+        },
+
         _updateValueState: function(oControl) {
             // Simple visual helper
             if (typeof oControl.getValue === "function") {
