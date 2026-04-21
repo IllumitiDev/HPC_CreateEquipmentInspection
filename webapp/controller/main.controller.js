@@ -380,7 +380,7 @@ sap.ui.define([
                 const oListBinding = this._oMeasurementdocumentDataModel.bindList("/ZC_MeasurementDoc");
                 
                 let date = new Date();
-                date.setSeconds(date.getTime() - 60000);
+                date.setTime(date.getTime() - 60000);
 
                 // 1. Create the entry
                 const oContext = oListBinding.create({
